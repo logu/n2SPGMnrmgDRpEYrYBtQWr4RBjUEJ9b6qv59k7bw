@@ -129,5 +129,6 @@ $RECYCLE.BIN/
 *.lnk
 
 dist
+dump/**/*
 docs.md
 

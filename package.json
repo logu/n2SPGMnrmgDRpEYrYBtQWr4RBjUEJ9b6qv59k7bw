@@ -4,23 +4,38 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/app.js --exec babel-node --presets env",
+    "nodemon": "nodemon src/app.js --exec babel-node --presets env",
+    "start": "npm run nodemon",
     "build": "babel src -d dist --source-maps inline --copy-files",
     "serve": "node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "apidoc -i ./src/v1/endpoints -o ./doc/v1",
+    "doc-md": "npm run doc && apidoc-markdown -p ./doc/v1 -o DOCUMENTATION.md"
   },
   "author": "Logu",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "mongoose": "^5.4.16",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "apidoc": "^0.17.7",
+    "apidoc-markdown": "^0.2.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "nodemon": "^1.18.10"
+  },
+  "apidoc": {
+    "name": "Express API Documentation of the MyFca",
+    "title": "MyFca Api Documentation",
+    "description": "Api used in the MyFca Api.",
+    "url": "http://localhost:8081/v1",
+    "template": {
+      "forceLanguage": "en"
+    }
   }
 }

@@ -1,10 +1,14 @@
-import express from 'express';
-import logger from 'morgan';
+import express from 'express'
+import logger from 'morgan'
+import {connect} from './config/db'
 
-const app = express();
-const PORT = 3000;
+const app = express()
+const PORT = 8080
 
-app.use(logger('dev'));
+
+connect()
+
+app.use(logger('dev'))
 
 app.get('/', (req, res) => res.json({ msg: 'Welcome to MyFca Api' }))
 app.use((req, res, next) => {
@@ -23,5 +27,5 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running at PORT http://localhost:${PORT}`);
+    console.log(`Server is running at PORT http://localhost:${PORT}`)
 });
