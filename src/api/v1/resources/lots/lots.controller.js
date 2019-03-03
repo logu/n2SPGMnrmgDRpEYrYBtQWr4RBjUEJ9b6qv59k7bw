@@ -2,7 +2,6 @@ const { ObjectId } = require('bson')
 import JoiBase from 'joi'
 const JoiObjectId = require('joi-mongodb-objectid')
 const Joi = JoiBase.extend(JoiObjectId)
-
 import Lot from './lot.model'
 
 export default {
@@ -38,6 +37,19 @@ export default {
         }  catch (err) {
             console.error(err)
             return res.status(500).send(err)
+        }
+    },
+    async getItemById(req, res) {
+        try{
+            const { id } = req.params
+            const lot = await Lot.findById(id)
+            if (!lot) {
+                return res.status(404).json({ err: `could not find item with the id : ${ id }`})
+            }
+            return res.json(lot)
+        } catch (err) {
+            console.error(err)
+            res.status(500).send(err)
         }
     }
 }

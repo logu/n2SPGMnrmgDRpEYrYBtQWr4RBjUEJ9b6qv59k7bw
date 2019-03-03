@@ -6,3 +6,7 @@ gestionnairesRouter
     .route('/')
     .post(gestionnairesController.create)
     .get(gestionnairesController.getAll)
+
+gestionnairesRouter
+    .route('/:id')
+    .get(gestionnairesController.getItemById)

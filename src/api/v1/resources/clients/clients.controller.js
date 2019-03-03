@@ -42,5 +42,18 @@ export default {
             console.error(err)
             return res.status(500).send(err)
         }
+    },
+    async getItemById(req, res) {
+        try{
+            const { id } = req.params
+            const client = await Client.findById(id)
+            if (!client) {
+                return res.status(404).json({ err: `could not find item with the id : ${ id }`})
+            }
+            return res.json(client)
+        } catch (err) {
+            console.error(err)
+            res.status(500).send(err)
+        }
     }
 }

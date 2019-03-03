@@ -6,3 +6,7 @@ clientsRouter
     .route('/')
     .post(clientsController.create)
     .get(clientsController.getAll)
+
+clientsRouter
+    .route('/:id')
+    .get(clientsController.getItemById)
