@@ -1,7 +1,9 @@
 import express from 'express'
 import logger from 'morgan'
+import swagger from 'swagger-ui-express'
 import {connect} from './config/db'
 import { restRouterV1 } from './api/v1'
+import  swaggerDoc from './config/swagger.json'
 
 const app = express()
 const PORT = 8080
@@ -15,6 +17,13 @@ app.use(logger('dev'))
 
 app.get('/', (req, res) => res.json({ msg: 'Welcome to MyFca Api' }))
 app.use('/api/v1', restRouterV1)
+app.use(
+    '/api-docs/v1',
+    swagger.serve,
+    swagger.setup(swaggerDoc, {
+        explorer: true
+    })
+)
 app.use((req, res, next) => {
     const error = new Error('Not found')
     error.message = 'Invalid route'

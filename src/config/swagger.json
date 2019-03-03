@@ -1,0 +1,137 @@
+{
+  "swagger": "2.0",
+  "title" : "MyFca Api",
+  "description" : "Api used in MyFca app",
+  "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+  },
+  "version": "1.0.0",
+  "host": "localhost:8080",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "MyFca",
+      "description": "API for MyFca Endpoints"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths" :{
+    "/clients":{
+      "post":{
+        "tags": ["Clients"],
+        "summary": "Api endpoint to create a Client",
+        "description" : "Create a new client in database",
+        "parameters":[
+          {
+            "name": "client",
+            "description": "Song params to create new client",
+            "in": "body",
+            "required": "true",
+            "schema" : {
+              "$ref" : "#definitions/Client"
+            }
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "New Client Created",
+            "schema": {
+              "$ref" : "#definitions/Client"
+            }
+          }
+        }
+      },
+      "get":{
+        "tags": ["Clients"],
+        "summary": "Api endpoint to find all Client",
+        "description" : "Find all clients from database",
+        "parameters":[
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Define the page index for the records",
+            "in": "query"
+          },
+          {
+            "name": "perPage",
+            "type": "integer",
+            "description": "Define the limiet for the records i.e 10",
+            "in": "query"
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "All clients",
+            "schema": {
+              "$ref" : "#definitions/Clients"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Client":{
+      "required" : ["fullname", "email"],
+      "properties" : {
+        "_id": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "email2": {
+          "type": "string"
+        },
+        "telDomicile": {
+          "type": "string"
+        },
+        "telPro": {
+          "type": "string"
+        },
+        "telMobile": {
+          "type": "string"
+        },
+        "telMobile2": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "sexe": {
+          "type": "string"
+        }
+      }
+    },
+    "Clients":{
+      "properties" : {
+        "docs": {
+          "type": "array",
+          "items": {
+            "$ref": "#definitions/Client"
+          }
+        },
+        "total": {
+          "type": "integer"
+        },
+        "pages": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
