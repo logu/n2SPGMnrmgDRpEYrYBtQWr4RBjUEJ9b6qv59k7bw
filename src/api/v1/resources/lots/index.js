@@ -1,0 +1,1 @@
+export { lotsRouter } from './lots.router'

@@ -1,6 +1,7 @@
 import express from 'express'
 import logger from 'morgan'
 import {connect} from './config/db'
+import { restRouterV1 } from './api/v1'
 
 const app = express()
 const PORT = 8080
@@ -8,9 +9,12 @@ const PORT = 8080
 
 connect()
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(logger('dev'))
 
 app.get('/', (req, res) => res.json({ msg: 'Welcome to MyFca Api' }))
+app.use('/api/v1', restRouterV1)
 app.use((req, res, next) => {
     const error = new Error('Not found')
     error.message = 'Invalid route'
@@ -21,7 +25,7 @@ app.use((error, req, res, next) => {
     res.status(error.status || 500)
     return res.json({
         error: {
-            message: error.message,
+            message: error.message
         }
     });
 });

@@ -1,0 +1,1 @@
+export { gestionnairesRouter } from './gestionnaires.router'
