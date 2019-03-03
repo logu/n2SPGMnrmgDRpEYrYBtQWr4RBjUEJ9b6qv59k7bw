@@ -44,12 +44,25 @@ export default {
             const { id } = req.params
             const lot = await Lot.findById(id)
             if (!lot) {
-                return res.status(404).json({ err: `could not find item with the id : ${ id }`})
+                return res.status(404).json({ err: `could not find item with the id : ${ id }` })
             }
             return res.json(lot)
         } catch (err) {
             console.error(err)
             res.status(500).send(err)
+        }
+    },
+    async delete(req, res) {
+        try {
+            const { id } = req.params;
+            const lot = await Lot.findOneAndRemove({ _id: id });
+            if (!lot) {
+                return res.status(404).json({ err: `could not find item with the id : ${ id }` });
+            }
+            return res.json(lot);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send(err);
         }
     }
 }

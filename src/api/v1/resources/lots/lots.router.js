@@ -10,3 +10,4 @@ lotsRouter
 lotsRouter
     .route('/:id')
     .get(lotsController.getItemById)
+    .delete(lotsController.delete)

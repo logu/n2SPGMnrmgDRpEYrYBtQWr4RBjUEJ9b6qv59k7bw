@@ -45,5 +45,18 @@ export default {
             console.error(err)
             res.status(500).send(err)
         }
+    },
+    async delete(req, res) {
+        try {
+            const { id } = req.params;
+            const gestionnaire = await Gestionnaire.findOneAndRemove({ _id: id });
+            if (!gestionnaire) {
+                return res.status(404).json({ err: `could not find item with the id : ${ id }` });
+            }
+            return res.json(gestionnaire);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send(err);
+        }
     }
 }

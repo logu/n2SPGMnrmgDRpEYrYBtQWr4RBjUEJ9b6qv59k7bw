@@ -10,3 +10,4 @@ gestionnairesRouter
 gestionnairesRouter
     .route('/:id')
     .get(gestionnairesController.getItemById)
+    .delete(gestionnairesController.delete)
