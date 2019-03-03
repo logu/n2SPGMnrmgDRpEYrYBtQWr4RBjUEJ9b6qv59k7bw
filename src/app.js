@@ -1,9 +1,11 @@
 import express from 'express'
 import logger from 'morgan'
+import passport from 'passport'
 import swagger from 'swagger-ui-express'
 import {connect} from './config/db'
 import { restRouterV1 } from './api/v1'
 import  swaggerDoc from './config/swagger.json'
+import { configJWTStrategy } from './api/v1/middlewares/passport-jwt'
 
 const app = express()
 const PORT = 8080
@@ -14,6 +16,8 @@ connect()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(logger('dev'))
+app.use(passport.initialize())
+configJWTStrategy()
 
 app.get('/', (req, res) => res.json({ msg: 'Welcome to MyFca Api' }))
 app.use('/api/v1', restRouterV1)

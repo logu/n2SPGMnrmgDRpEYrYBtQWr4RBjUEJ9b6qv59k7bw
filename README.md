@@ -8,7 +8,7 @@ Just clone this repository, install dependencies and start application:
 
 ### Clone and install dependencies
 ```bash
-git clone git@github.com:logu/.git logu-test
+git clone https://github.com/logu/n2SPGMnrmgDRpEYrYBtQWr4RBjUEJ9b6qv59k7bw logu-test
 cd logu-test
 npm install
 ```

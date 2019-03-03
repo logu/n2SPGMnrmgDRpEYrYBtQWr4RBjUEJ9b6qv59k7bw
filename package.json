@@ -13,12 +13,16 @@
   "author": "Logu",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "joi-mongodb-objectid": "^0.1.0",
+    "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.16",
     "mongoose-paginate-v2": "^1.0.23",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {

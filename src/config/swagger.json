@@ -11,8 +11,12 @@
   "basePath": "/api/v1",
   "tags": [
     {
-      "name": "MyFca",
-      "description": "API for MyFca Endpoints"
+      "name": "Clients",
+      "description": "API for Clients Endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "API for Users Endpoints"
     }
   ],
   "schemes": ["http"],
@@ -33,6 +37,13 @@
             "schema" : {
               "$ref" : "#definitions/Client"
             }
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
           }
         ],
         "produces" : ["application/json"],
@@ -61,6 +72,13 @@
             "type": "integer",
             "description": "Define the limiet for the records i.e 10",
             "in": "query"
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
           }
         ],
         "produces" : ["application/json"],
@@ -69,6 +87,60 @@
             "description" : "All clients",
             "schema": {
               "$ref" : "#definitions/Clients"
+            }
+          }
+        }
+      }
+    },
+    "/users/signup":{
+      "post":{
+        "tags": ["Users"],
+        "summary": "API Endpoint for create User",
+        "description" : "Create new User in database",
+        "parameters":[
+          {
+            "name": "user",
+            "description": "User params to regitser new user",
+            "in": "body",
+            "required": "true",
+            "schema" : {
+              "$ref" : "#definitions/User"
+            }
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "New user has been Created",
+            "schema": {
+              "$ref" : "#definitions/SignupRsp"
+            }
+          }
+        }
+      }
+    },
+    "/users/login":{
+      "post":{
+        "tags": ["Users"],
+        "summary": "API Endpoint to login his/her account",
+        "description" : "Login user",
+        "parameters":[
+          {
+            "name": "user",
+            "description": "User params to login",
+            "in": "body",
+            "required": "true",
+            "schema" : {
+              "$ref" : "#definitions/UserLogin"
+            }
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "New user has loggedIn",
+            "schema": {
+              "$ref" : "#definitions/UserLoginRsp"
             }
           }
         }
@@ -130,6 +202,45 @@
         },
         "page": {
           "type": "integer"
+        }
+      }
+    },
+    "User":{
+      "required": ["user", "password"],
+      "properties":{
+        "_id": {
+          "type" : "string"
+        },
+        "user": {
+          "type" : "string"
+        },
+        "password": {
+          "type" : "string"
+        }
+      }
+    },
+    "SignupRsp":{
+      "properties":{
+        "success": {
+          "type":"boolean"
+        }
+      }
+    },
+    "UserLogin":{
+      "required": ["user", "password"],
+      "properties":{
+        "user": {
+          "type" : "string"
+        },
+        "password": {
+          "type" : "string"
+        }
+      }
+    },
+    "UserLoginRsp":{
+      "properties":{
+        "token": {
+          "type" : "string"
         }
       }
     }
