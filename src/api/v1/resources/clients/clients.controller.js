@@ -28,5 +28,19 @@ export default {
             return res.status(500).send(err)
         }
 
+    },
+    async getAll(req, res) {
+        try {
+            const { page, perPage } = req.query
+            const options = {
+                page: parseInt(page, 10) || 1,
+                limit: parseInt(perPage, 10) || 10
+            }
+            const clients = await Client.paginate({}, options)
+            return res.json(clients)
+        }  catch (err) {
+            console.error(err)
+            return res.status(500).send(err)
+        }
     }
 }
