@@ -1,14 +1,15 @@
 import express from 'express'
+import passport from 'passport'
 import gestionnairesController from './gestionnaires.controller'
 
 export const gestionnairesRouter = express.Router()
 gestionnairesRouter
     .route('/')
-    .post(gestionnairesController.create)
-    .get(gestionnairesController.getAll)
+    .post(passport.authenticate('jwt', { session: false }), gestionnairesController.create)
+    .get(passport.authenticate('jwt', { session: false }), gestionnairesController.getAll)
 
 gestionnairesRouter
     .route('/:id')
-    .get(gestionnairesController.getItemById)
-    .delete(gestionnairesController.delete)
-    .put(gestionnairesController.update)
+    .get(passport.authenticate('jwt', { session: false }), gestionnairesController.getItemById)
+    .delete(passport.authenticate('jwt', { session: false }), gestionnairesController.delete)
+    .put(passport.authenticate('jwt', { session: false }), gestionnairesController.update)
