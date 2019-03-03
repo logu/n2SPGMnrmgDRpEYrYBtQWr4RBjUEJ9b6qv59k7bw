@@ -11,3 +11,4 @@ clientsRouter
     .route('/:id')
     .get(clientsController.getItemById)
     .delete(clientsController.delete)
+    .put(clientsController.update)

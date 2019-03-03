@@ -58,5 +58,25 @@ export default {
             console.error(err);
             return res.status(500).send(err);
         }
+    },
+    async update(req, res) {
+        try {
+            const { id } = req.params;
+            const schema = Joi.object().keys({
+                fullname: Joi.string().optional()
+            });
+            const { value, error } = Joi.validate(req.body, schema);
+            if (error && error.details) {
+                return res.status(400).json(error);
+            }
+            const gestionnaire = await Gestionnaire.findOneAndUpdate({ _id: id }, value, { new: true });
+            if (!gestionnaire) {
+                return res.status(404).json({ err: `could not find item with the id : ${ id }` });
+            }
+            return res.json(gestionnaire);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send(err);
+        }
     }
 }
