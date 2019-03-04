@@ -11,87 +11,26 @@
   "basePath": "/api/v1",
   "tags": [
     {
+      "name": "Users",
+      "description": "API for Users Endpoints"
+    },
+    {
       "name": "Clients",
       "description": "API for Clients Endpoints"
     },
     {
-      "name": "Users",
-      "description": "API for Users Endpoints"
+      "name": "Gestionnaires",
+      "description": "API for Gestionnaires Endpoints"
+    },
+    {
+      "name": "Lots",
+      "description": "API for Lots Endpoints"
     }
   ],
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths" :{
-    "/clients":{
-      "post":{
-        "tags": ["Clients"],
-        "summary": "Api endpoint to create a Client",
-        "description" : "Create a new client in database",
-        "parameters":[
-          {
-            "name": "client",
-            "description": "Song params to create new client",
-            "in": "body",
-            "required": "true",
-            "schema" : {
-              "$ref" : "#definitions/Client"
-            }
-          },
-          {
-            "name": "authorization",
-            "description": "Access token to authorize the user",
-            "in": "header",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "produces" : ["application/json"],
-        "responses":{
-          "200":{
-            "description" : "New Client Created",
-            "schema": {
-              "$ref" : "#definitions/Client"
-            }
-          }
-        }
-      },
-      "get":{
-        "tags": ["Clients"],
-        "summary": "Api endpoint to find all Client",
-        "description" : "Find all clients from database",
-        "parameters":[
-          {
-            "name": "page",
-            "type": "integer",
-            "description": "Define the page index for the records",
-            "in": "query"
-          },
-          {
-            "name": "perPage",
-            "type": "integer",
-            "description": "Define the limiet for the records i.e 10",
-            "in": "query"
-          },
-          {
-            "name": "authorization",
-            "description": "Access token to authorize the user",
-            "in": "header",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "produces" : ["application/json"],
-        "responses":{
-          "200":{
-            "description" : "All clients",
-            "schema": {
-              "$ref" : "#definitions/Clients"
-            }
-          }
-        }
-      }
-    },
     "/users/signup":{
       "post":{
         "tags": ["Users"],
@@ -145,11 +84,468 @@
           }
         }
       }
+    },
+    "/clients":{
+      "post":{
+        "tags": ["Clients"],
+        "summary": "Api endpoint to create a Client",
+        "description" : "Create a new client in database",
+        "parameters":[
+          {
+            "name": "client",
+            "description": "Client params to create new client",
+            "in": "body",
+            "required": "true",
+            "schema" : {
+              "$ref" : "#definitions/CreateClient"
+            }
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "New Client Created",
+            "schema": {
+              "$ref" : "#definitions/Client"
+            }
+          }
+        }
+      },
+      "get":{
+        "tags": ["Clients"],
+        "summary": "Api endpoint to find all Clients",
+        "description" : "Find all clients from database",
+        "parameters":[
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Define the page index for the records",
+            "in": "query"
+          },
+          {
+            "name": "perPage",
+            "type": "integer",
+            "description": "Define the limiet for the records i.e 10",
+            "in": "query"
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "All clients",
+            "schema": {
+              "$ref" : "#definitions/Clients"
+            }
+          }
+        }
+      }
+    },
+    "/clients/{id}":{
+      "parameters":[
+        {
+          "name" : "id",
+          "in": "path",
+          "required": "true",
+          "description": "id of the client",
+          "type": "string"
+
+        },
+        {
+          "name": "authorization",
+          "description": "Access token to authorize the user",
+          "in": "header",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get":{
+        "tags": ["Clients"],
+        "summary": "API Endpoint to find single Client",
+        "description" : "Find one client from the database",
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Client has found",
+            "schema": {
+              "$ref" : "#definitions/Client"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags": ["Clients"],
+        "summary": "API Endpoint to delete the Client",
+        "description" : "Delete client from the database",
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Client has been deleted",
+            "schema": {
+              "$ref" : "#definitions/Client"
+            }
+          }
+        }
+      },
+      "put":{
+        "tags": ["Clients"],
+        "summary": "API Endpoint for update Client",
+        "description" : "Update the existing Client in database",
+        "parameters":[
+          {
+            "name": "client",
+            "description": "Client params to update the client",
+            "in": "body",
+            "schema" : {
+              "$ref" : "#definitions/UpdateClient"
+            }
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Client has been Updated",
+            "schema": {
+              "$ref" : "#definitions/Client"
+            }
+          }
+        }
+      }
+    },
+    "/gestionnaires": {
+      "post":{
+        "tags": ["Gestionnaires"],
+        "summary": "Api endpoint to create a Gestionnaire",
+        "description" : "Create a new Gestionnaire in database",
+        "parameters":[
+          {
+            "name": "gestionnaire",
+            "description": "gestionnaire params to create new gestionnaire",
+            "in": "body",
+            "required": "true",
+            "schema" : {
+              "$ref" : "#definitions/Gestionnaire"
+            }
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "New Gestionnaire Created",
+            "schema": {
+              "$ref" : "#definitions/Gestionnaire"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Gestionnaires"],
+        "summary": "Api endpoint to find all Gestionnaires",
+        "description": "Find all Gestionnaires from database",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Define the page index for the records",
+            "in": "query"
+          },
+          {
+            "name": "perPage",
+            "type": "integer",
+            "description": "Define the limiet for the records i.e 10",
+            "in": "query"
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "All gestionnaires",
+            "schema": {
+              "$ref" : "#definitions/Gestionnaires"
+            }
+          }
+        }
+      }
+    },
+    "/gestionnaires/{id}":{
+      "parameters":[
+        {
+          "name" : "id",
+          "in": "path",
+          "required": "true",
+          "description": "id of the gestionnaire",
+          "type": "string"
+
+        },
+        {
+          "name": "authorization",
+          "description": "Access token to authorize the user",
+          "in": "header",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get":{
+        "tags": ["Gestionnaires"],
+        "summary": "API Endpoint to find single Gestionnaire",
+        "description" : "Find one gestionnaire from the database",
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Gestionnaire has found",
+            "schema": {
+              "$ref" : "#definitions/Gestionnaire"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags": ["Gestionnaires"],
+        "summary": "API Endpoint to delete the Gestionnaire",
+        "description" : "Delete gestionnaire from the database",
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Gestionnaire has been deleted",
+            "schema": {
+              "$ref" : "#definitions/Gestionnaire"
+            }
+          }
+        }
+      },
+      "put":{
+        "tags": ["Gestionnaires"],
+        "summary": "API Endpoint for update Gestionnaire",
+        "description" : "Update the existing Gestionnaire in database",
+        "parameters":[
+          {
+            "name": "gestionnaire",
+            "description": "Gestionnaire params to update the gestionnaire",
+            "in": "body",
+            "schema" : {
+              "$ref" : "#definitions/UpdateGestionnaire"
+            }
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Gestionnaire has been Updated",
+            "schema": {
+              "$ref" : "#definitions/Gestionnaire"
+            }
+          }
+        }
+      }
+    },
+    "/lots": {
+      "post":{
+        "tags": ["Lots"],
+        "summary": "Api endpoint to create a Lot",
+        "description" : "Create a new Lot in database",
+        "parameters":[
+          {
+            "name": "lot",
+            "description": "lot params to create new lot",
+            "in": "body",
+            "required": "true",
+            "schema" : {
+              "$ref" : "#definitions/Lot"
+            }
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "New Gestionnaire Created",
+            "schema": {
+              "$ref" : "#definitions/Gestionnaire"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Lots"],
+        "summary": "Api endpoint to find all Lots",
+        "description": "Find all Lots from database",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Define the page index for the records",
+            "in": "query"
+          },
+          {
+            "name": "perPage",
+            "type": "integer",
+            "description": "Define the limiet for the records i.e 10",
+            "in": "query"
+          },
+          {
+            "name": "authorization",
+            "description": "Access token to authorize the user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "All lots",
+            "schema": {
+              "$ref" : "#definitions/Lots"
+            }
+          }
+        }
+      }
+    },
+    "/lots/{id}":{
+      "parameters":[
+        {
+          "name" : "id",
+          "in": "path",
+          "required": "true",
+          "description": "id of the lot",
+          "type": "string"
+        },
+        {
+          "name": "authorization",
+          "description": "Access token to authorize the user",
+          "in": "header",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get":{
+        "tags": ["Lots"],
+        "summary": "API Endpoint to find single Lot",
+        "description" : "Find one lot from the database",
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Lot has found",
+            "schema": {
+              "$ref" : "#definitions/Lot"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags": ["Lots"],
+        "summary": "API Endpoint to delete the Lot",
+        "description" : "Delete lot from the database",
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Lot has been deleted",
+            "schema": {
+              "$ref" : "#definitions/Lot"
+            }
+          }
+        }
+      },
+      "put":{
+        "tags": ["Lots"],
+        "summary": "API Endpoint for update Lot",
+        "description" : "Update the existing Lot in database",
+        "parameters":[
+          {
+            "name": "lot",
+            "description": "Lot params to update the lot",
+            "in": "body",
+            "schema" : {
+              "$ref" : "#definitions/UpdateLot"
+            }
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "Lot has been Updated",
+            "schema": {
+              "$ref" : "#definitions/Lot"
+            }
+          }
+        }
+      }
     }
   },
   "definitions" : {
+    "User":{
+      "required": ["user", "password"],
+      "properties":{
+        "_id": {
+          "type" : "string"
+        },
+        "user": {
+          "type" : "string"
+        },
+        "password": {
+          "type" : "string"
+        }
+      }
+    },
+    "SignupRsp":{
+      "properties":{
+        "success": {
+          "type":"boolean"
+        }
+      }
+    },
+    "UserLogin":{
+      "required": ["user", "password"],
+      "properties":{
+        "user": {
+          "type" : "string"
+        },
+        "password": {
+          "type" : "string"
+        }
+      }
+    },
+    "UserLoginRsp":{
+      "properties":{
+        "token": {
+          "type" : "string"
+        }
+      }
+    },
     "Client":{
-      "required" : ["fullname", "email"],
       "properties" : {
         "id": {
           "type": "string"
@@ -187,42 +583,165 @@
         }
       }
     },
-    "User":{
-      "required": ["user", "password"],
+    "UpdateClient": {
       "properties":{
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "email2": {
+          "type": "string"
+        },
+        "telDomicile": {
+          "type": "string"
+        },
+        "telPro": {
+          "type": "string"
+        },
+        "telMobile": {
+          "type": "string"
+        },
+        "telMobile2": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "sexe": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateClient": {
+      "required" : ["fullname", "email"],
+      "properties":{
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "email2": {
+          "type": "string"
+        },
+        "telDomicile": {
+          "type": "string"
+        },
+        "telPro": {
+          "type": "string"
+        },
+        "telMobile": {
+          "type": "string"
+        },
+        "telMobile2": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "sexe": {
+          "type": "string"
+        }
+      }
+    },
+    "Gestionnaire": {
+      "required": ["fullname"],
+      "properties": {
         "_id": {
-          "type" : "string"
+          "type": "string"
         },
-        "user": {
-          "type" : "string"
+        "fullname": {
+          "type": "string"
         },
-        "password": {
-          "type" : "string"
+        "numeros": {
+          "type": "object"
         }
       }
     },
-    "SignupRsp":{
-      "properties":{
-        "success": {
-          "type":"boolean"
-        }
-      }
-    },
-    "UserLogin":{
-      "required": ["user", "password"],
-      "properties":{
-        "user": {
-          "type" : "string"
+    "Gestionnaires": {
+      "properties" : {
+        "docs": {
+          "type": "array",
+          "items": {
+            "$ref": "#definitions/Gestionnaire"
+          }
         },
-        "password": {
-          "type" : "string"
+        "total": {
+          "type": "integer"
+        },
+        "pages": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
         }
       }
     },
-    "UserLoginRsp":{
-      "properties":{
-        "token": {
-          "type" : "string"
+    "UpdateGestionnaire": {
+      "properties": {
+        "fullname": {
+          "type": "string"
+        },
+        "numeros": {
+          "type": "object"
+        }
+      }
+    },
+    "GestionnairesCombinationRsp": {
+      "properties": {
+        "data": {
+          "type": "array"
+        }
+      }
+    },
+    "Lot": {
+      "required": ["surface"],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "surface": {
+          "type": "integer"
+        }
+      }
+    },
+    "Lots": {
+      "properties" : {
+        "docs": {
+          "type": "array",
+          "items": {
+            "$ref": "#definitions/Lot"
+          }
+        },
+        "total": {
+          "type": "integer"
+        },
+        "pages": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdateLot": {
+      "properties": {
+        "client": {
+          "type": "string"
+        },
+        "surface": {
+          "type": "integer"
         }
       }
     }

@@ -1,5 +1,6 @@
 import Joi from 'joi'
 import Gestionnaire from './gestionnaire.model'
+import Combinations from '../../helpers/combinations'
 
 export default {
     async create(req, res) {
@@ -77,6 +78,21 @@ export default {
         } catch (err) {
             console.error(err);
             return res.status(500).send(err);
+        }
+    },
+    async getCombinationsById(req, res) {
+        try{
+            const { id } = req.params
+            const gestionnaire = await Gestionnaire.findById(id).lean()
+            if (!gestionnaire) {
+                return res.status(404).json({ err: `could not find item with the id : ${ id }`})
+            }
+            const combinations = Combinations.findPaths(gestionnaire.﻿numeros)
+
+            return res.json({ data: combinations })
+        } catch (err) {
+            console.error(err)
+            res.status(500).send(err)
         }
     }
 }

@@ -13,3 +13,7 @@ gestionnairesRouter
     .get(passport.authenticate('jwt', { session: false }), gestionnairesController.getItemById)
     .delete(passport.authenticate('jwt', { session: false }), gestionnairesController.delete)
     .put(passport.authenticate('jwt', { session: false }), gestionnairesController.update)
+
+gestionnairesRouter
+    .route('/:id/combinations')
+    .get(passport.authenticate('jwt', { session: false }), gestionnairesController.getCombinationsById)
