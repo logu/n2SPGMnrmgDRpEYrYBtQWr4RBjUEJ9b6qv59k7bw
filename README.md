@@ -1,16 +1,16 @@
 # MyFca
 
-> This is project to submit the test sent on 01/03/2019
+> This is a project to submit the test sent on 01/03/2019
 
 - This project is built as a RESTful API to make use of HTTP requests to GET, PUT, POST and DELETE data.
 - The implementation of all the CRUD APIs is made by using Nodejs and Mongoose.
 - The documentation of this APIs is implemented using Swagger.
-- For a secure access of the API JWT authentication is implemented with using Passportjs.
+- For a secure access of the API, JWT authentication is implemented with the use of Passportjs.
 
 
 ## Usage
 
-Just clone this repository, install dependencies and start application:
+Clone this repository, install dependencies and start application:
 
 #### Clone and install dependencies
 ```bash
@@ -101,8 +101,14 @@ curl -X POST \
       -H 'Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjN2MzOTcxODI5N2QwNjMzZWEzYTFkNCIsImlhdCI6MTU1MTY0NzUxMiwiZXhwIjoxNTUxNzMzOTEyfQ.SzyMfS4EHAIaQXU0pA9_Fja4VfBg2uOP63Ox5y3uBsI'
 ```
 
-
 ---
+
+## Build 
+
+A build process is available to get a ES5 transpiled version of the project. 
+```bash
+npm run build
+```
 
 ## What's inside?
 
