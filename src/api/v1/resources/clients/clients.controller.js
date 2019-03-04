@@ -34,7 +34,8 @@ export default {
             const { page, perPage } = req.query
             const options = {
                 page: parseInt(page, 10) || 1,
-                limit: parseInt(perPage, 10) || 10
+                limit: parseInt(perPage, 10) || 10,
+                populate : 'lotsCount'
             }
             const clients = await Client.paginate({}, options)
             return res.json(clients)

@@ -151,7 +151,7 @@
     "Client":{
       "required" : ["fullname", "email"],
       "properties" : {
-        "_id": {
+        "id": {
           "type": "string"
         },
         "fullname": {
@@ -160,26 +160,8 @@
         "email": {
           "type": "string"
         },
-        "email2": {
-          "type": "string"
-        },
-        "telDomicile": {
-          "type": "string"
-        },
-        "telPro": {
-          "type": "string"
-        },
-        "telMobile": {
-          "type": "string"
-        },
-        "telMobile2": {
-          "type": "string"
-        },
-        "fax": {
-          "type": "string"
-        },
-        "sexe": {
-          "type": "string"
+        "lotsCount": {
+          "type": "integer"
         }
       }
     },
