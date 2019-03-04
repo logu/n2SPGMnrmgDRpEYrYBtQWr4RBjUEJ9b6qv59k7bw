@@ -23,8 +23,8 @@ clientSchema.set('toJSON', {
   virtuals: true
 })
 clientSchema.options.toJSON.transform = function (doc, ret, options) {
-  delete ret._id;
-  delete ret.__v;
+  delete ret._id
+  delete ret.__v
 }
 clientSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Client', clientSchema)
